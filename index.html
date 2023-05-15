@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Text Counter</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<main>
+			<textarea id="textarea"></textarea>
+			<table>
+				<tr>
+					<th rowspan="2" width="20%">공백 O</th>
+					<th width="20%">개행 O</th>
+					<td width="30%">
+						<span id="textLengthWithBlankWithNewLine">0</span>자
+					</td>
+					<td width="30%">
+						<span id="textByteLengthWithBlankWithNewLine">0</span>바이트
+					</td>
+				</tr>
+				<tr>
+					<th>개행 X</th>
+					<td>
+						<span id="textLengthWithBlankWithoutNewLine">0</span>자
+					</td>
+					<td>
+						<span id="textByteLengthWithBlankWithoutNewLine">0</span>바이트
+					</td>
+				</tr>
+				<tr>
+					<th colspan="2">공백 X</th>
+					<td>
+						<span id="textLengthWithoutBlankWithoutNewLine">0</span>자
+					</td>
+					<td>
+						<span id="textByteLengthWithoutBlankWithoutNewLine">0</span>바이트
+					</td>
+				</tr>
+			</table>
+			<div id="counters">
+			</div>
+		</main>
+		<script src="script.js"></script>
+	</body>
+</html>

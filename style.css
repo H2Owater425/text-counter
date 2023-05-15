@@ -1,0 +1,48 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+
+* {
+	margin: 0;
+	padding: 0;
+	font-family: 'Pretendard Variable';
+}
+
+html {
+	overflow: hidden;
+}
+
+body, html {
+	height: 100%;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+	height: 100%;
+	font-size: 2.5vh;
+	/*gap: 25vh;*/
+}
+
+span {
+	font-size: 3.5vh;
+	margin-right: 1vh;
+}
+
+textarea {
+	margin-top: 1.5vh;
+	width: 97vw;
+	height: 80vh;
+	resize: none;
+	font-size: 2vh;
+}
+
+table {
+	width: 50vmax;
+	height: 10vh;
+	border: 1px black solid;
+}
+
+td, th {
+	text-align: center;
+}
