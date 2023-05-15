@@ -1,6 +1,6 @@
 (function () {
 	const lastContentValue = localStorage.getItem('content');
-	const content = document.getElementById('textarea');
+	const content = document.getElementById('content');
 	const contentLengthWithBlankWithNewLine = document.getElementById('contentLengthWithBlankWithNewLine');
 	const contentByteLengthWithBlankWithNewLine = document.getElementById('contentByteLengthWithBlankWithNewLine');
 	const contentLengthWithBlankWithoutNewLine = document.getElementById('contentLengthWithBlankWithoutNewLine');
