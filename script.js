@@ -1,12 +1,15 @@
 (function () {
-	const textArea = document.getElementById('textarea');
-	const textLengthWithBlankWithNewLine = document.getElementById('textLengthWithBlankWithNewLine');
-	const textByteLengthWithBlankWithNewLine = document.getElementById('textByteLengthWithBlankWithNewLine');
-	const textLengthWithBlankWithoutNewLine = document.getElementById('textLengthWithBlankWithoutNewLine');
-	const textByteLengthWithBlankWithoutNewLine = document.getElementById('textByteLengthWithBlankWithoutNewLine');
-	const textLengthWithoutBlankWithoutNewLine = document.getElementById('textLengthWithoutBlankWithoutNewLine');
-	const textByteLengthWithoutBlankWithoutNewLine = document.getElementById('textByteLengthWithoutBlankWithoutNewLine');
-
+	const lastContentValue = localStorage.getItem('content');
+	const content = document.getElementById('textarea');
+	const contentLengthWithBlankWithNewLine = document.getElementById('contentLengthWithBlankWithNewLine');
+	const contentByteLengthWithBlankWithNewLine = document.getElementById('contentByteLengthWithBlankWithNewLine');
+	const contentLengthWithBlankWithoutNewLine = document.getElementById('contentLengthWithBlankWithoutNewLine');
+	const contentByteLengthWithBlankWithoutNewLine = document.getElementById('contentByteLengthWithBlankWithoutNewLine');
+	const contentLengthWithoutBlankWithoutNewLine = document.getElementById('contentLengthWithoutBlankWithoutNewLine');
+	const contentByteLengthWithoutBlankWithoutNewLine = document.getElementById('contentByteLengthWithoutBlankWithoutNewLine');
+	const saveIndicator = document.getElementById('saveIndicator');
+	let isSaving = false;
+	let timeoutId;
 	
 	function getByteLength(string){
 		let byte = 0;
@@ -21,18 +24,81 @@
 
 		return byte;
 	}
+
+	function saveContent() {
+		if(!isSaving) {
+			isSaving = true;
+
+			localStorage.setItem('content', content['value']);
+
+			let intervalId = window.setInterval(function () {
+				if(saveIndicator['style']['opacity'] != 1) {
+					saveIndicator['style']['opacity'] = Number(saveIndicator['style']['opacity']) + 0.01;
+				} else {
+					window.clearInterval(intervalId);
+					intervalId = window.setInterval(function () {
+						if(saveIndicator['style']['opacity'] != 0) {
+							saveIndicator['style']['opacity'] = Number(saveIndicator['style']['opacity']) - 0.01;
+						} else {
+							window.clearInterval(intervalId);
+							isSaving = false;
+						}
 	
-	textArea.addEventListener('input', function () {
-		const textWithBlankWithoutNewLine = textArea['value'].replace(/\n/g, '');
-		const textWithoutBlankWithoutNewLine = textArea['value'].replace(/\n|\s|\t/g, '');
+						return;
+					}, 7);
+				}
+				
+				return;
+			}, 7);
+		}
+
+		return;
+	}
+
+	function countContent() {
+		const textWithBlankWithoutNewLine = content['value'].replace(/\n/g, '');
+		const textWithoutBlankWithoutNewLine = content['value'].replace(/\n|\s|\t/g, '');
 		
-		textLengthWithBlankWithNewLine['textContent'] = textArea['value']['length'];
-		textByteLengthWithBlankWithNewLine['textContent'] = getByteLength(textArea['value']);
-		textLengthWithBlankWithoutNewLine['textContent'] = textWithBlankWithoutNewLine['length'];
-		textByteLengthWithBlankWithoutNewLine['textContent'] = getByteLength(textWithBlankWithoutNewLine);
-		textLengthWithoutBlankWithoutNewLine['textContent'] = textWithoutBlankWithoutNewLine['length'];
-		textByteLengthWithoutBlankWithoutNewLine['textContent'] = getByteLength(textWithoutBlankWithoutNewLine);
+		contentLengthWithBlankWithNewLine['textContent'] = content['value']['length'];
+		contentByteLengthWithBlankWithNewLine['textContent'] = getByteLength(content['value']);
+		contentLengthWithBlankWithoutNewLine['textContent'] = textWithBlankWithoutNewLine['length'];
+		contentByteLengthWithBlankWithoutNewLine['textContent'] = getByteLength(textWithBlankWithoutNewLine);
+		contentLengthWithoutBlankWithoutNewLine['textContent'] = textWithoutBlankWithoutNewLine['length'];
+		contentByteLengthWithoutBlankWithoutNewLine['textContent'] = getByteLength(textWithoutBlankWithoutNewLine);
+
+		return;
+	}
+	
+	content.addEventListener('input', function () {
+		if(typeof(timeoutId) === 'number') {
+			window.clearTimeout(timeoutId);
+		}
 		
+		timeoutId = window.setTimeout(function () {
+			saveContent();
+
+			return;
+		}, 5000);
+
+		countContent();
+
 		return;
 	});
+
+	document['body'].addEventListener('keydown', function (keyboardEvent) {
+		if(keyboardEvent['ctrlKey'] && keyboardEvent['key'] === 's') {
+			keyboardEvent.preventDefault();
+
+			saveContent();
+		}
+
+		return;
+	});
+
+	if(typeof(lastContentValue) === 'string') {
+		content['value'] = lastContentValue;
+		countContent();
+	} else {
+		localStorage.setItem('content', '');
+	}
 })();
