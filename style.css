@@ -30,20 +30,30 @@ main {
 
 span {
 	font-size: 3.5vh;
-	margin-right: 1vh;
+	margin-right: 0.5vh;
 }
 
 textarea {
-	margin-top: 1.5vh;
-	width: 97vw;
-	height: 80vh;
+	width: 97.5%;
+	height: 80%;
 	resize: none;
 	font-size: 2vh;
 }
 
+@media (width < 1000px) {
+	table {
+		width: 97.5%;
+	}
+}
+
+@media (width >= 1000px) {
+	table {
+		width: 60%;
+	}
+}
+
 table {
-	width: 50vmax;
-	height: 10vh;
+	height: 10%;
 	border: 1px black solid;
 }
 
