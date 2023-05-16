@@ -86,10 +86,33 @@
 	});
 
 	document['body'].addEventListener('keydown', function (keyboardEvent) {
-		if(keyboardEvent['ctrlKey'] && keyboardEvent['key'] === 's') {
-			keyboardEvent.preventDefault();
+		switch(keyboardEvent['key']) {
+			case 'Enter': {
+				if(document['activeElement']['id'] !== 'content') {
+					content.focus();
+				}
 
-			saveContent();
+				break;
+			}
+			case 'Escape': {
+				if(document['activeElement']['id'] === 'content') {
+					const temporaryTextarea = document.createElement('textarea');
+					document['body'].appendChild(temporaryTextarea);
+					temporaryTextarea.focus();
+					temporaryTextarea.remove();
+				}
+				
+				break;
+			}
+			case 's': {
+				if(keyboardEvent['ctrlKey']) {
+					keyboardEvent.preventDefault();
+
+					saveContent();
+				}
+
+				break;
+			}
 		}
 
 		return;
