@@ -6,6 +6,11 @@
 	font-family: 'Pretendard Variable';
 }
 
+label {
+	position: absolute;
+	top: -10vh;
+}
+
 html {
 	overflow: hidden;
 }
